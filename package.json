@@ -1,0 +1,94 @@
+{
+	"name": "dsw-extension",
+	"displayName": "dsw-extension",
+	"description": "",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.63.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:dsw-extension.addProject",
+		"onCustomEditor:project.exp",
+		"onView:dswExplorer"
+	],
+	"browser": "./dist/web/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "dsw-extension.addProject",
+				"title": "dsw",
+				"icon": "media/add.svg"
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "pai-explorer",
+					"title": "PAI",
+					"icon": "media/experiment.svg"
+				}
+			]
+		},
+		"views": {
+			"pai-explorer": [
+				{
+					"id": "dswExplorer",
+					"name": "Experiments"
+				},
+				{
+					"id": "jobExplorer",
+					"name": "Jobs"
+				}
+			]
+		},
+		"customEditors": [
+			{
+				"viewType": "project.exp",
+				"displayName": "experiment",
+				"selector": [
+					{
+						"filenamePattern": "*.exp"
+					}
+				]
+			}
+		],
+		"menus": {
+			"view/title": [
+				{
+					"command": "dsw-extension.addProject",
+					"when": "view == dswExplorer",
+					"group": "navigation"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"test": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. --extensionTestsPath=dist/web/test/suite/index.js",
+		"pretest": "npm run compile-web",
+		"vscode:prepublish": "npm run package-web",
+		"compile-web": "webpack",
+		"watch-web": "webpack --watch",
+		"package-web": "webpack --mode production --devtool hidden-source-map",
+		"lint": "eslint src --ext ts",
+		"run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. ."
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.63.0",
+		"@types/mocha": "^9.0.0",
+		"eslint": "^8.6.0",
+		"@typescript-eslint/eslint-plugin": "^5.9.1",
+		"@typescript-eslint/parser": "^5.9.1",
+		"mocha": "^9.1.3",
+		"typescript": "^4.5.4",
+		"@vscode/test-web": "^0.0.15",
+		"ts-loader": "^9.2.6",
+		"webpack": "^5.66.0",
+		"webpack-cli": "^4.9.1",
+		"@types/webpack-env": "^1.16.3",
+		"assert": "^2.0.0",
+		"process": "^0.11.10"
+	}
+}
